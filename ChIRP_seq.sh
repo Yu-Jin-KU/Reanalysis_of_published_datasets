@@ -29,3 +29,20 @@ for file in *sorted.bam; do echo $file && samtools markdup -r $file ${file/.bam/
 ls  *dedup.bam  |xargs -i samtools index {} 
 ls *dedup.bam |while read id;do
 nohup bamCoverage  --normalizeUsing RPKM -b $id -o ${id%%.*}.dedup.bw & done
+
+# Convert BAM files to BED:
+for file in *dedup.bam; do bedtools bamtobed -i $file > ${file/bam/bed}; done
+
+# Pool replicates:
+cat Luc1*bed Luc2*bed| sort -k1,1 -k2,2n > Luc1_Luc2_merged.bed
+cat Luc1*bed Luc3*bed| sort -k1,1 -k2,2n > Luc1_Luc3_merged.bed
+cat Luc2*bed Luc3*bed| sort -k1,1 -k2,2n > Luc2_Luc3_merged.bed
+cat Even*bed Odd*bed |sort -k1,1 -k2,2n > Even_Odd_merged.bed
+
+# Run CCAT for peakcalling:
+CCAT Even_Odd_merged.bed Luc1_Luc2_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc1_Luc2_merged
+CCAT Even_Odd_merged.bed Luc1_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc1_Luc3_merged
+CCAT Even_Odd_merged.bed Luc2_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc2_Luc3_merged
+
+# Convert output files to BED:
+for file in *significant.peak; do echo $file && cut -f 1,3,4,5,6,7,8 $file | sort -k1,1 -k2,2n | sed 's/ChrM/Mt/;s/ChrC/Pt/;s/Chr//'> ${file}.bed; done
