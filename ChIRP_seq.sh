@@ -40,9 +40,9 @@ cat Luc2*bed Luc3*bed| sort -k1,1 -k2,2n > Luc2_Luc3_merged.bed
 cat Even*bed Odd*bed |sort -k1,1 -k2,2n > Even_Odd_merged.bed
 
 # Run CCAT for peakcalling:
-CCAT Even_Odd_merged.bed Luc1_Luc2_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc1_Luc2_merged
-CCAT Even_Odd_merged.bed Luc1_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc1_Luc3_merged
-CCAT Even_Odd_merged.bed Luc2_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_vs_Luc2_Luc3_merged
+CCAT Even_Odd_merged.bed Luc1_Luc2_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_mergedvsluc1_luc2_merged
+CCAT Even_Odd_merged.bed Luc1_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_mergedvsluc1_luc3_merged
+CCAT Even_Odd_merged.bed Luc2_Luc3_merged.bed TAIR10_chrom_sizes.txt ./example/config_histone.txt Even_Odd_mergedvsluc2_luc3_merged
 
 # Convert output files to BED:
 for file in *significant.peak; do echo $file && cut -f 1,3,4,5,6,7,8 $file | sort -k1,1 -k2,2n | sed 's/ChrM/Mt/;s/ChrC/Pt/;s/Chr//'> ${file}.bed; done
