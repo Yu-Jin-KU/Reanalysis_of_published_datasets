@@ -1,5 +1,4 @@
 library(ChIPseeker)
-library("org.At.tair.db")
 library(TxDb.Athaliana.BioMart.plantsmart28)
 txdb <- TxDb.Athaliana.BioMart.plantsmart28
 library (dplyr)
