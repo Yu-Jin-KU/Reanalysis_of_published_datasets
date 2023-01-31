@@ -42,8 +42,7 @@ nohup rsem-calculate-expression --paired-end --no-bam-output --alignments -p 15 
 
 #build data matrix 
 rsem-generate-data-matrix *pcp_rep*_rsem.genes.results > ../08deseq_out/pcp_output.matrix
-rsem-generate-data-matrix *WT_rep*_rsem.genes.results > ../08deseq_out/WT_output.matrix
 
 #delete unexpressed genes
 awk 'BEGIN{printf "geneid\ta1\ta2\ta3\tb1\tb2\tb3\n"}{if($2+$3+$4+$5+$6+$7>0)print $0}' pcp_output.matrix |cut -f 1,2,3,4,5,6,7 > pcp_gene.txt
-awk 'BEGIN{printf "geneid\ta1\ta2\ta3\tb1\tb2\tb3\n"}{if($2+$3+$4+$5+$6+$7>0)print $0}' WT_output.matrix |cut -f 1,2,3,5,6,7 > WT_gene.txt
+
