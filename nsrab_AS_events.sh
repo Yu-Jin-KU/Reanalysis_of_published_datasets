@@ -25,10 +25,10 @@ cut -f 1,11-13 as_events.psi > nsrab.psi
 cut -f 1,11-13 iso_tpm.txt > nsrab.tpm
 
 
-ioe_merge_file=~/flail/nsra_RNAseq/splicing/suppa/ATRTD3.all.events.ioe
-ls $ioe_merge_file
+
+
 suppa.py   diffSplice \
--m empirical -gc -i  $ioe_merge_file   \
+-m empirical -gc -i  ATRTD3.all.events.ioe   \
 --save_tpm_events \
 -p nsrab.psi WT.psi  \
 -e nsrab.tpm WT.tpm \
