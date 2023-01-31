@@ -8,7 +8,7 @@ R1unpaired=${f1//.fastq/_unpaired.fastq.gz}
 R2paired=${f2//.fastq/_paired.fastq.gz} 
 R2unpaired=${f2//.fastq/_unpaired.fastq.gz} && 
 trimmomatic PE -threads 16 -phred33 -trimlog logfile $f1 $f2 $R1paired $R1unpaired $R2paired $R2unpaired 
-ILLUMINACLIP:/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:8:true PE -threads 16 -phred33 -trimlog logfile 
+ILLUMINACLIP:/trimmomatic-0.39-1/adapters/TruSeq3-PE-2.fa:2:30:10:8:true  
 SLIDINGWINDOW:5:20 LEADING:5 TRAILING:5 MINLEN:36;done
 
 # Build index:
